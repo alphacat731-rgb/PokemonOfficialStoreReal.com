@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Una tienda Pokémon completamente dudosa.">
+  <title>Floral™ — Tienda totalmente real</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">FLORAL<span>™</span></div>
+    <div class="language" aria-label="Language">
+      <button class="lang active" data-lang="es">ES</button>
+      <button class="lang" data-lang="en">EN</button>
+      <button class="lang" data-lang="zh">中文</button>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="product-card">
+      <div class="badge" data-i18n="fakeBadge">COMPRA FALSA</div>
+
+      <div class="product-image-wrap">
+        <img class="product-image" src="floral.jpg" alt="Carta Floral 450 PS">
+      </div>
+
+      <div class="product-info">
+        <p class="eyebrow" data-i18n="evolution">Evolucionando de sprigatito</p>
+        <h1 data-i18n="title">Floral</h1>
+        <p class="tagline" data-i18n="tagline">Una carta absolutamente necesaria.</p>
+
+        <div class="price-row">
+          <span class="price">449,99 €</span>
+          <span class="tax" data-i18n="tax">impuesto de nada incluido</span>
+        </div>
+
+        <button id="buyButton" class="buy" type="button" data-i18n="buy">COMPRAR (NO REAL)</button>
+
+        <p class="tiny-note" data-i18n="fakeNote">
+          Es una tienda de mentira. No se cobra dinero. La cartera puede respirar.
+        </p>
+
+        <div class="details">
+          <div><strong data-i18n="attack1Label">Ataque</strong><span data-i18n="attack1">Bomba explosiva de semillas — 150</span></div>
+          <div><strong data-i18n="attack2Label">Ataque</strong><span data-i18n="attack2">Látigo-mágico — 255</span></div>
+          <div><strong data-i18n="rarityLabel">Rareza</strong><span data-i18n="rarity">Muy probablemente rara</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="joke-box">
+      <h2 data-i18n="jokeTitle">¿Por qué cuesta tanto?</h2>
+      <p data-i18n="jokeText">Porque el número 449,99 parecía suficientemente caro y suficientemente estúpido.</p>
+    </section>
+  </main>
+
+  <footer>
+    <span data-i18n="footer">© 2026 Tienda dudosa. No afiliada con ninguna tienda Pokémon real.</span>
+  </footer>
+
+  <div id="modal" class="modal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button id="closeModal" class="close" type="button" aria-label="Close">×</button>
+      <div class="modal-icon">🌱</div>
+      <h2 id="modalTitle" data-i18n="modalTitle">Compra procesada imaginariamente</h2>
+      <p data-i18n="modalText">Gracias por intentar gastar 449,99 €. Tu dinero sigue exactamente donde estaba.</p>
+      <button id="okModal" class="buy secondary" type="button" data-i18n="modalOk">OK, supongo</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
