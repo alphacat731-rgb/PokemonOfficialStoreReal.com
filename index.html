@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Una tienda Pokémon completamente dudosa.">
-  <title>Floral™ — Tienda totalmente real</title>
+  <meta name="description" content="Tienda premium de cartas Pokémon.">
+  <title>Floral™ — Tienda Oficial</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -19,10 +19,10 @@
 
   <main class="shell">
     <section class="product-card">
-      <div class="badge" data-i18n="fakeBadge">COMPRA FALSA</div>
+      <div class="badge" data-i18n="badge">EDICIÓN ESPECIAL</div>
 
       <div class="product-image-wrap">
-        <img id="productImage" class="product-image" src="floral.webp" alt="Carta Floral 450 PS">
+        <img id="productImage" class="product-image" src="floral.jpg" alt="Carta Floral 450 PS">
       </div>
 
       <div class="product-info">
@@ -35,10 +35,10 @@
           <span class="tax" data-i18n="tax">impuesto de nada incluido</span>
         </div>
 
-        <button id="buyButton" class="buy" type="button" data-i18n="buy">COMPRAR (NO REAL)</button>
+        <button id="buyButton" class="buy" type="button" data-i18n="buy">COMPRAR AHORA</button>
 
-        <p class="tiny-note" data-i18n="fakeNote">
-          Es una tienda de mentira. No se cobra dinero. La cartera puede respirar.
+        <p class="tiny-note" data-i18n="note">
+          Envío premium, experiencia premium y una cantidad premium de decisiones cuestionables.
         </p>
 
         <div class="details">
@@ -56,16 +56,16 @@
   </main>
 
   <footer>
-    <span data-i18n="footer">© 2026 Tienda dudosa. No afiliada con ninguna tienda Pokémon real.</span>
+    <span data-i18n="footer">© 2026 Floral™ Store.</span>
   </footer>
 
   <div id="modal" class="modal" hidden>
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <button id="closeModal" class="close" type="button" aria-label="Close">×</button>
       <div class="modal-icon">🌱</div>
-      <h2 id="modalTitle" data-i18n="modalTitle">Compra procesada imaginariamente</h2>
-      <p data-i18n="modalText">Gracias por intentar gastar 449,99 €. Tu dinero sigue exactamente donde estaba.</p>
-      <button id="okModal" class="buy secondary" type="button" data-i18n="modalOk">OK, supongo</button>
+      <h2 id="modalTitle" data-i18n="modalTitle">Pedido recibido</h2>
+      <p data-i18n="modalText">Gracias por tu compra. Tu pedido Floral está preparado para continuar hacia el siguiente paso.</p>
+      <button id="okModal" class="buy secondary" type="button" data-i18n="modalOk">CONTINUAR</button>
     </div>
   </div>
 
