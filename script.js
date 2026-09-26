@@ -95,32 +95,4 @@ document.getElementById("okModal").addEventListener("click",closeModal);
 modal.addEventListener("click",(e)=>{if(e.target===modal) closeModal();});
 document.addEventListener("keydown",(e)=>{if(e.key==="Escape") closeModal();});
 
-const productImage=document.getElementById("productImage");
-const imageParts=[
-  "floral.webp.part1.b64",
-  "floral.webp.part2.b64",
-  "floral.webp.part3.b64"
-];
-
-(async()=>{
-  try{
-    const parts=await Promise.all(
-      imageParts.map(path=>fetch(path).then(response=>{
-        if(!response.ok) throw new Error("Image data not found");
-        return response.text();
-      }))
-    );
-    const binary=atob(parts.join(""));
-    const bytes=new Uint8Array(binary.length);
-    for(let i=0;i<binary.length;i++) bytes[i]=binary.charCodeAt(i);
-    const blob=new Blob([bytes],{type:"image/webp"});
-    productImage.src=URL.createObjectURL(blob);
-    productImage.setAttribute("aria-busy","false");
-  }catch(error){
-    productImage.alt="No se pudo cargar la carta Floral";
-    productImage.setAttribute("aria-busy","false");
-    console.error(error);
-  }
-})();
-
 setLanguage(localStorage.getItem("floral-lang")||"es");
