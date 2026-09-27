@@ -152,65 +152,11 @@ const translations={
 };
 
 const prices={
-  es:{value:"449,99 €"},
-  us:{value:"$499.99"},
-  jp:{value:"¥69,800"},
-  cn:{value:"¥3,499"}
-};
-
-const setLanguage=(lang)=>{
-  const dict=translations[lang]||translations.es;
-  document.documentElement.lang=lang==="zh"?"zh":lang;
-  document.querySelectorAll("[data-i18n]").forEach(el=>{
-    const key=el.dataset.i18n;
-    if(dict[key]) el.textContent=dict[key];
-  });
-  document.querySelectorAll(".lang").forEach(btn=>{
-    btn.classList.toggle("active",btn.dataset.lang===lang);
-  });
-  localStorage.setItem("floral-lang",lang);
-  localStorage.setItem("floral-lang-v2",lang);
-  if(typeof selectCard==="function") selectCard(selectedCard);
-};
-
-const setRegion=(region)=>{
-  const selected=prices[region]?region:"es";
-  document.getElementById("productPrice").textContent=prices[selected].value;
-  document.getElementById("regionSelect").value=selected;
-  localStorage.setItem("floral-region",selected);
-};
-
-document.querySelectorAll(".lang").forEach(btn=>{
-  btn.addEventListener("click",()=>setLanguage(btn.dataset.lang));
-});
-document.getElementById("regionSelect").addEventListener("change",(e)=>setRegion(e.target.value));
-
-const modal=document.getElementById("modal");
-const closeModal=()=>{
-  modal.hidden=true;
-  document.body.style.overflow="";
-};
-document.getElementById("buyButton").addEventListener("click",()=>{
-  modal.hidden=false;
-  document.body.style.overflow="hidden";
-});
-document.getElementById("closeModal").addEventListener("click",closeModal);
-document.getElementById("okModal").addEventListener("click",closeModal);
-modal.addEventListener("click",(e)=>{if(e.target===modal) closeModal();});
-document.addEventListener("keydown",(e)=>{if(e.key==="Escape") closeModal();});
-
-const cardData={
   standard:{
-    image:"floral.png",
-    alt:"Floral standard card — 450 HP",
-    badgeKey:"standardBadge",
-    eyebrowKey:"evolution",
-    taglineKey:"tagline",
-    price:"449,99 €",
-    noteKey:"note",
-    attack1Key:"attack1",
-    attack2Key:"attack2",
-    rarityKey:"rarity"
+    es:"449,99 €",
+    us:"$499.99",
+    jp:"¥69,800",
+    cn:"¥3,499"
   },
   special:{
     image:"floral-special.png",
@@ -218,7 +164,6 @@ const cardData={
     badgeKey:"specialBadge",
     eyebrowKey:"specialEyebrow",
     taglineKey:"specialTagline",
-    price:"599,99 €",
     noteKey:"specialNote",
     attack1Key:"specialAttack1",
     attack2Key:"specialAttack2",
@@ -236,7 +181,8 @@ const selectCard=(type)=>{
   document.getElementById("productBadge").textContent=dict[data.badgeKey];
   document.getElementById("productEyebrow").textContent=dict[data.eyebrowKey];
   document.getElementById("productTagline").textContent=dict[data.taglineKey];
-  document.getElementById("productPrice").textContent=data.price;
+  const region=localStorage.getItem("floral-region")||"es";
+  document.getElementById("productPrice").textContent=prices[selectedCard]?.[region]||prices[selectedCard]?.es||prices.standard.es;
   document.getElementById("productNote").textContent=dict[data.noteKey];
   document.getElementById("attack1").textContent=dict[data.attack1Key];
   document.getElementById("attack2").textContent=dict[data.attack2Key];
@@ -245,7 +191,9 @@ const selectCard=(type)=>{
     const active=btn.dataset.card===selectedCard;
     btn.classList.toggle("active",active);
     btn.setAttribute("aria-selected",active?"true":"false");
+    btn.tabIndex=active?0:-1;
   });
+  localStorage.setItem("floral-card",selectedCard);
 };
 document.querySelectorAll(".card-choice").forEach(btn=>{
   btn.addEventListener("click",()=>selectCard(btn.dataset.card));
@@ -254,8 +202,10 @@ document.querySelectorAll(".card-choice").forEach(btn=>{
 const savedLang=localStorage.getItem("floral-lang-v2")||"en";
 localStorage.setItem("floral-lang-v2",savedLang);
 const savedRegion=localStorage.getItem("floral-region")||"es";
+const savedCard=localStorage.getItem("floral-card")||"standard";
 setLanguage(savedLang);
 setRegion(savedRegion);
+selectCard(savedCard);
 
 const showMoreReviews=document.getElementById("showMoreReviews");
 if(showMoreReviews){
