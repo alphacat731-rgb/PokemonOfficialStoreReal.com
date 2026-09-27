@@ -159,6 +159,28 @@ const prices={
     cn:"¥3,499"
   },
   special:{
+    es:"599,99 €",
+    us:"$649.99",
+    jp:"¥89,800",
+    cn:"¥5,499"
+  }
+};
+
+let selectedCard="standard";
+
+const cardData={
+  standard:{
+    image:"floral.png",
+    alt:"Floral standard card — 450 HP",
+    badgeKey:"standardBadge",
+    eyebrowKey:"evolution",
+    taglineKey:"tagline",
+    noteKey:"note",
+    attack1Key:"attack1",
+    attack2Key:"attack2",
+    rarityKey:"rarity"
+  },
+  special:{
     image:"floral-special.png",
     alt:"Floral special edition card — 450 HP",
     badgeKey:"specialBadge",
@@ -170,37 +192,91 @@ const prices={
     rarityKey:"specialRarity"
   }
 };
-let selectedCard="standard";
+
 const selectCard=(type)=>{
   selectedCard=cardData[type]?type:"standard";
   const data=cardData[selectedCard];
   const lang=document.documentElement.lang||"en";
   const dict=translations[lang]||translations.en;
+  const region=localStorage.getItem("floral-region")||"es";
+
   document.getElementById("productImage").src=data.image;
   document.getElementById("productImage").alt=data.alt;
-  document.getElementById("productBadge").textContent=dict[data.badgeKey];
-  document.getElementById("productEyebrow").textContent=dict[data.eyebrowKey];
-  document.getElementById("productTagline").textContent=dict[data.taglineKey];
-  const region=localStorage.getItem("floral-region")||"es";
-  document.getElementById("productPrice").textContent=prices[selectedCard]?.[region]||prices[selectedCard]?.es||prices.standard.es;
-  document.getElementById("productNote").textContent=dict[data.noteKey];
-  document.getElementById("attack1").textContent=dict[data.attack1Key];
-  document.getElementById("attack2").textContent=dict[data.attack2Key];
-  document.getElementById("rarity").textContent=dict[data.rarityKey];
+  document.getElementById("productBadge").textContent=dict[data.badgeKey]||"";
+  document.getElementById("productEyebrow").textContent=dict[data.eyebrowKey]||"";
+  document.getElementById("productTagline").textContent=dict[data.taglineKey]||"";
+  document.getElementById("productPrice").textContent=prices[selectedCard][region]||prices[selectedCard].es;
+  document.getElementById("productNote").textContent=dict[data.noteKey]||"";
+  document.getElementById("attack1").textContent=dict[data.attack1Key]||"";
+  document.getElementById("attack2").textContent=dict[data.attack2Key]||"";
+  document.getElementById("rarity").textContent=dict[data.rarityKey]||"";
+
   document.querySelectorAll(".card-choice").forEach(btn=>{
     const active=btn.dataset.card===selectedCard;
     btn.classList.toggle("active",active);
     btn.setAttribute("aria-selected",active?"true":"false");
     btn.tabIndex=active?0:-1;
   });
+
   localStorage.setItem("floral-card",selectedCard);
 };
+
+const setLanguage=(lang)=>{
+  const dict=translations[lang]||translations.en;
+  document.documentElement.lang=lang==="zh"?"zh":lang;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key=el.dataset.i18n;
+    if(dict[key]) el.textContent=dict[key];
+  });
+  document.querySelectorAll(".lang").forEach(btn=>{
+    btn.classList.toggle("active",btn.dataset.lang===lang);
+  });
+  localStorage.setItem("floral-lang",lang);
+  localStorage.setItem("floral-lang-v2",lang);
+  selectCard(selectedCard);
+};
+
+const setRegion=(region)=>{
+  const selected=prices[selectedCard]?.[region]?region:"es";
+  document.getElementById("productPrice").textContent=prices[selectedCard]?.[selected]||prices[selectedCard].es;
+  document.getElementById("regionSelect").value=selected;
+  localStorage.setItem("floral-region",selected);
+};
+
+document.querySelectorAll(".lang").forEach(btn=>{
+  btn.addEventListener("click",()=>setLanguage(btn.dataset.lang));
+});
+
+document.getElementById("regionSelect").addEventListener("change",(e)=>setRegion(e.target.value));
+
+const modal=document.getElementById("modal");
+const closeModal=()=>{
+  modal.hidden=true;
+  document.body.style.overflow="";
+};
+
+document.getElementById("buyButton").addEventListener("click",()=>{
+  modal.hidden=false;
+  document.body.style.overflow="hidden";
+});
+document.getElementById("closeModal").addEventListener("click",closeModal);
+document.getElementById("okModal").addEventListener("click",closeModal);
+modal.addEventListener("click",(e)=>{if(e.target===modal) closeModal();});
+document.addEventListener("keydown",(e)=>{if(e.key==="Escape") closeModal();});
+
 document.querySelectorAll(".card-choice").forEach(btn=>{
-  btn.addEventListener("click",()=>selectCard(btn.dataset.card));
+  btn.addEventListener("click",()=>{
+    selectCard(btn.dataset.card);
+  });
+  btn.addEventListener("keydown",(e)=>{
+    if(e.key==="Enter"||e.key===" "){
+      e.preventDefault();
+      selectCard(btn.dataset.card);
+    }
+  });
 });
 
 const savedLang=localStorage.getItem("floral-lang-v2")||"en";
-localStorage.setItem("floral-lang-v2",savedLang);
 const savedRegion=localStorage.getItem("floral-region")||"es";
 const savedCard=localStorage.getItem("floral-card")||"standard";
 setLanguage(savedLang);
@@ -216,6 +292,6 @@ if(showMoreReviews){
       card.classList.toggle("is-visible",reviewsOpen);
     });
     const dict=translations[document.documentElement.lang]||translations.es;
-    showMoreReviews.textContent=reviewsOpen?(dict.reviewsLess||"OCULTAR COMENTARIOS"):(dict.reviewsMore||"MOSTRAR MÁS COMENTARIOS");
+    showMoreReviews.textContent=reviewsOpen?(dict.reviewsLess||"HIDE REVIEWS"):(dict.reviewsMore||"SHOW MORE REVIEWS");
   });
 }
