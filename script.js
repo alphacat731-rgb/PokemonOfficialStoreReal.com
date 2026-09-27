@@ -26,12 +26,12 @@ const translations={
     verified:"Compra verificada",
     reviewsMore:"MOSTRAR MÁS COMENTARIOS",
     reviewsLess:"OCULTAR COMENTARIOS",
-    review1:"“La compré por 449€ y esa misma noche cerré la puerta con llave. Mi dignidad no volvió a aparecer hasta el martes.”",
-    review2:"“La funda empezó siendo un accesorio y terminó siendo cómplice. No voy a dar más detalles. 10/10.”",
-    review3:"“Le enseñé Floral a un colega y me preguntó por qué estaba sudando. La conversación murió ahí mismo.”",
-    review4:"“OnlyFloralFans no es una broma. Digamos que Floral pasó de estar en mi escritorio a tener una ubicación mucho más privada.”",
-    review5:"“Soy PajeroBotanico y mi historial de búsqueda después de comprar Floral debería ser considerado material clasificado.”",
-    review6:"“El látigo-mágico tiene 255 de ataque y, aparentemente, también 255 de capacidad para arruinar mi dignidad. Compra verificada.”",
+    review1:"“说实话，我就是因为插画很好看才买的。后来看到450 HP，觉得……行吧，很合理。”",
+    review2:"“卡片到手的时候状态很好。本来担心印刷看起来会有点廉价，结果实物还挺漂亮。”",
+    review3:"“999速度真的很好笑。我也不知道为什么这么高，不过我完全不介意。”",
+    review4:"“我把它放进植物系卡片的卡册里，结果现在总是第一眼看到它哈哈。”",
+    review5:"“这周本来没打算再买卡。看到Floral之后就改主意了。事情就是这么简单。”",
+    review6:"“攻击力有点离谱，但这反而是我喜欢它的原因。感觉像有人凌晨两点突然做出来的卡。”",
     jokeTitle:"¿Por qué cuesta tanto?",
     jokeText:"Porque el número 449,99 parecía suficientemente caro y suficientemente estúpido.",
     footer:"© 2026 Floral™ Store.",
@@ -139,6 +139,7 @@ const setLanguage=(lang)=>{
     btn.classList.toggle("active",btn.dataset.lang===lang);
   });
   localStorage.setItem("floral-lang",lang);
+  localStorage.setItem("floral-lang-v2",lang);
 };
 
 const setRegion=(region)=>{
@@ -167,7 +168,8 @@ document.getElementById("okModal").addEventListener("click",closeModal);
 modal.addEventListener("click",(e)=>{if(e.target===modal) closeModal();});
 document.addEventListener("keydown",(e)=>{if(e.key==="Escape") closeModal();});
 
-const savedLang=localStorage.getItem("floral-lang")||"es";
+const savedLang=localStorage.getItem("floral-lang-v2")||"en";
+localStorage.setItem("floral-lang-v2",savedLang);
 const savedRegion=localStorage.getItem("floral-region")||"es";
 setLanguage(savedLang);
 setRegion(savedRegion);
