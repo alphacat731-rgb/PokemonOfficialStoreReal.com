@@ -24,6 +24,8 @@ const translations={
     reviewsKicker:"OPINIONES",
     reviewsTitle:"Clientes que claramente saben lo que hacen",
     verified:"Compra verificada",
+    reviewsMore:"MOSTRAR MÁS COMENTARIOS",
+    reviewsLess:"OCULTAR COMENTARIOS",
     review1:"“La compré por 449€ y esa misma noche cerré la puerta con llave. Mi dignidad no volvió a aparecer hasta el martes.”",
     review2:"“La funda empezó siendo un accesorio y terminó siendo cómplice. No voy a dar más detalles. 10/10.”",
     review3:"“Le enseñé Floral a un colega y me preguntó por qué estaba sudando. La conversación murió ahí mismo.”",
@@ -62,6 +64,8 @@ const translations={
     reviewsKicker:"REVIEWS",
     reviewsTitle:"Customers who clearly know what they are doing",
     verified:"Verified purchase",
+    reviewsMore:"SHOW MORE REVIEWS",
+    reviewsLess:"HIDE REVIEWS",
     review1:"“Bought it for €449 and locked the door that same night. My dignity did not return until Tuesday.”",
     review2:"“The sleeve started as an accessory and ended up as an accomplice. I will provide no further details. 10/10.”",
     review3:"“I showed Floral to a friend and he asked why I was sweating. The conversation died right there.”",
@@ -100,6 +104,8 @@ const translations={
     reviewsKicker:"评价",
     reviewsTitle:"这些顾客显然知道自己在做什么",
     verified:"已验证购买",
+    reviewsMore:"显示更多评论",
+    reviewsLess:"隐藏评论",
     review1:"“花了449欧元买的，当晚我就锁上了门。我的尊严直到星期二才回来。”",
     review2:"“保护套一开始只是配件，后来不知怎么成了共犯。细节拒绝透露。10/10。”",
     review3:"“我给朋友看Floral，他问我为什么在出汗。然后这场谈话就结束了。”",
@@ -165,3 +171,16 @@ const savedLang=localStorage.getItem("floral-lang")||"es";
 const savedRegion=localStorage.getItem("floral-region")||"es";
 setLanguage(savedLang);
 setRegion(savedRegion);
+
+const showMoreReviews=document.getElementById("showMoreReviews");
+if(showMoreReviews){
+  let reviewsOpen=false;
+  showMoreReviews.addEventListener("click",()=>{
+    reviewsOpen=!reviewsOpen;
+    document.querySelectorAll(".review-extra").forEach(card=>{
+      card.classList.toggle("is-visible",reviewsOpen);
+    });
+    const dict=translations[document.documentElement.lang]||translations.es;
+    showMoreReviews.textContent=reviewsOpen?(dict.reviewsLess||"OCULTAR COMENTARIOS"):(dict.reviewsMore||"MOSTRAR MÁS COMENTARIOS");
+  });
+}
