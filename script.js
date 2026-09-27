@@ -2,7 +2,17 @@ const translations={
   es:{
     regionLabel:"Región",
     badge:"EDICIÓN ESPECIAL",
+    standardCard:"ESTÁNDAR",
+    specialCard:"EDICIÓN ESPECIAL",
+    standardBadge:"EDICIÓN ESTÁNDAR",
+    specialBadge:"EDICIÓN ESPECIAL",
     evolution:"Evolucionando de sprigatito",
+    specialEyebrow:"Ilustración alternativa · edición limitada",
+    specialTagline:"Una versión especial para coleccionistas.",
+    specialNote:"Ilustración alternativa, presentación premium y una cantidad razonable de decisiones cuestionables.",
+    specialAttack1:"Bomba de semillas — 120",
+    specialAttack2:"Absorción de energía — 180",
+    specialRarity:"Edición especial · 014/193",
     title:"Floral",
     tagline:"Una carta absolutamente necesaria.",
     tax:"impuesto de nada incluido",
@@ -34,7 +44,7 @@ const translations={
     review6:"“Los ataques están completamente pasados de vueltas, pero precisamente por eso me gusta. Parece una carta hecha a las 2 de la mañana.”",
     jokeTitle:"¿Por qué cuesta tanto?",
     jokeText:"Porque el número 449,99 parecía suficientemente caro y suficientemente estúpido.",
-    footer:"© 2026 Floral™ Store.",
+    footer:"© 2026 Verdant Card Exchange™.",
     modalTitle:"Pedido recibido",
     modalText:"Gracias por tu compra. Tu pedido Floral está preparado para continuar hacia el siguiente paso.",
     modalOk:"CONTINUAR"
@@ -42,7 +52,17 @@ const translations={
   en:{
     regionLabel:"Region",
     badge:"SPECIAL EDITION",
+    standardCard:"STANDARD",
+    specialCard:"SPECIAL EDITION",
+    standardBadge:"STANDARD EDITION",
+    specialBadge:"SPECIAL EDITION",
     evolution:"Evolving from sprigatito",
+    specialEyebrow:"Alternate artwork · limited edition",
+    specialTagline:"A special version for collectors.",
+    specialNote:"Alternate artwork, premium presentation, and a reasonable amount of questionable decisions.",
+    specialAttack1:"Seed Bomb — 120",
+    specialAttack2:"Energy Leech — 180",
+    specialRarity:"Special edition · 014/193",
     title:"Floral",
     tagline:"An absolutely needed card.",
     tax:"nothing tax included",
@@ -82,7 +102,17 @@ const translations={
   zh:{
     regionLabel:"地区",
     badge:"特别版",
+    standardCard:"标准版",
+    specialCard:"特别版",
+    standardBadge:"标准版",
+    specialBadge:"特别版",
     evolution:"从新叶喵进化",
+    specialEyebrow:"替代插画 · 限量版",
+    specialTagline:"为收藏家准备的特别版本。",
+    specialNote:"替代插画、高级展示，以及数量合理的可疑决定。",
+    specialAttack1:"种子炸弹 — 120",
+    specialAttack2:"能量吸取 — 180",
+    specialRarity:"特别版 · 014/193",
     title:"花草",
     tagline:"一个完全需要的卡片。",
     tax:"没有税也没有东西",
@@ -140,6 +170,7 @@ const setLanguage=(lang)=>{
   });
   localStorage.setItem("floral-lang",lang);
   localStorage.setItem("floral-lang-v2",lang);
+  if(typeof selectCard==="function") selectCard(selectedCard);
 };
 
 const setRegion=(region)=>{
@@ -167,6 +198,58 @@ document.getElementById("closeModal").addEventListener("click",closeModal);
 document.getElementById("okModal").addEventListener("click",closeModal);
 modal.addEventListener("click",(e)=>{if(e.target===modal) closeModal();});
 document.addEventListener("keydown",(e)=>{if(e.key==="Escape") closeModal();});
+
+const cardData={
+  standard:{
+    image:"floral.png",
+    alt:"Floral standard card — 450 HP",
+    badgeKey:"standardBadge",
+    eyebrowKey:"evolution",
+    taglineKey:"tagline",
+    price:"449,99 €",
+    noteKey:"note",
+    attack1Key:"attack1",
+    attack2Key:"attack2",
+    rarityKey:"rarity"
+  },
+  special:{
+    image:"floral-special.png",
+    alt:"Floral special edition card — 450 HP",
+    badgeKey:"specialBadge",
+    eyebrowKey:"specialEyebrow",
+    taglineKey:"specialTagline",
+    price:"599,99 €",
+    noteKey:"specialNote",
+    attack1Key:"specialAttack1",
+    attack2Key:"specialAttack2",
+    rarityKey:"specialRarity"
+  }
+};
+let selectedCard="standard";
+const selectCard=(type)=>{
+  selectedCard=cardData[type]?type:"standard";
+  const data=cardData[selectedCard];
+  const lang=document.documentElement.lang||"en";
+  const dict=translations[lang]||translations.en;
+  document.getElementById("productImage").src=data.image;
+  document.getElementById("productImage").alt=data.alt;
+  document.getElementById("productBadge").textContent=dict[data.badgeKey];
+  document.getElementById("productEyebrow").textContent=dict[data.eyebrowKey];
+  document.getElementById("productTagline").textContent=dict[data.taglineKey];
+  document.getElementById("productPrice").textContent=data.price;
+  document.getElementById("productNote").textContent=dict[data.noteKey];
+  document.getElementById("attack1").textContent=dict[data.attack1Key];
+  document.getElementById("attack2").textContent=dict[data.attack2Key];
+  document.getElementById("rarity").textContent=dict[data.rarityKey];
+  document.querySelectorAll(".card-choice").forEach(btn=>{
+    const active=btn.dataset.card===selectedCard;
+    btn.classList.toggle("active",active);
+    btn.setAttribute("aria-selected",active?"true":"false");
+  });
+};
+document.querySelectorAll(".card-choice").forEach(btn=>{
+  btn.addEventListener("click",()=>selectCard(btn.dataset.card));
+});
 
 const savedLang=localStorage.getItem("floral-lang-v2")||"en";
 localStorage.setItem("floral-lang-v2",savedLang);

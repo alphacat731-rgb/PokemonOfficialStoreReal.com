@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="Tienda premium de cartas Pokémon.">
-  <title>Floral™ — Tienda Oficial</title>
-  <link rel="stylesheet" href="styles.css?v=4">
+  <title>Verdant Card Exchange — Premium Trading Cards</title>
+  <link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
   <header class="topbar">
-    <div class="brand">FLORAL<span>™</span></div>
+    <div class="brand">VERDANT CARD EXCHANGE<span>™</span></div>
     <div class="top-actions">
       <label class="region-wrap">
         <span data-i18n="regionLabel">Región</span>
@@ -29,35 +29,47 @@
   </header>
 
   <main class="shell">
-    <section class="product-card">
-      <div class="badge" data-i18n="badge">EDICIÓN ESPECIAL</div>
-
-      <div class="product-image-wrap">
-        <img id="productImage" class="product-image" src="floral.png" alt="Carta Floral 450 PS">
+    <section class="product-selector">
+      <div class="product-switcher" role="tablist" aria-label="Card selection">
+        <button class="card-choice active" type="button" data-card="standard" role="tab" aria-selected="true">
+          <span data-i18n="standardCard">STANDARD</span>
+          <small>Floral</small>
+        </button>
+        <button class="card-choice" type="button" data-card="special" role="tab" aria-selected="false">
+          <span data-i18n="specialCard">SPECIAL EDITION</span>
+          <small>Floral</small>
+        </button>
       </div>
 
-      <div class="product-info">
-        <p class="eyebrow" data-i18n="evolution">Evolucionando de sprigatito</p>
-        <h1 data-i18n="title">Floral</h1>
-        <p class="tagline" data-i18n="tagline">Una carta absolutamente necesaria.</p>
-
-        <div class="price-row">
-          <span id="productPrice" class="price">449,99 €</span>
-          <span class="tax" data-i18n="tax">impuesto de nada incluido</span>
+      <article class="product-card unified-card">
+        <div class="product-image-wrap">
+          <img id="productImage" class="product-image" src="floral.png" alt="Floral card">
         </div>
 
-        <button id="buyButton" class="buy" type="button" data-i18n="buy">COMPRAR AHORA</button>
+        <div class="product-info">
+          <span id="productBadge" class="badge" data-i18n="standardBadge">STANDARD EDITION</span>
+          <p id="productEyebrow" class="eyebrow" data-i18n="evolution">Evolving from sprigatito</p>
+          <h1 id="productTitle">Floral</h1>
+          <p id="productTagline" class="tagline" data-i18n="tagline">An absolutely needed card.</p>
 
-        <p class="tiny-note" data-i18n="note">
-          Envío premium, experiencia premium y una cantidad premium de decisiones cuestionables.
-        </p>
+          <div class="price-row">
+            <span id="productPrice" class="price">449,99 €</span>
+            <span class="tax" data-i18n="tax">nothing tax included</span>
+          </div>
 
-        <div class="details">
-          <div><strong data-i18n="attack1Label">Ataque</strong><span data-i18n="attack1">Bomba explosiva de semillas — 150</span></div>
-          <div><strong data-i18n="attack2Label">Ataque</strong><span data-i18n="attack2">Látigo-mágico — 255</span></div>
-          <div><strong data-i18n="rarityLabel">Rareza</strong><span data-i18n="rarity">Muy probablemente rara</span></div>
+          <button id="buyButton" class="buy" type="button" data-i18n="buy">BUY NOW</button>
+
+          <p id="productNote" class="tiny-note" data-i18n="note">
+            Premium shipping, premium experience, and a premium amount of questionable decisions.
+          </p>
+
+          <div class="details">
+            <div><strong data-i18n="attack1Label">Attack</strong><span id="attack1">Explosive seed bomb — 150</span></div>
+            <div><strong data-i18n="attack2Label">Attack</strong><span id="attack2">Magic whip — 255</span></div>
+            <div><strong data-i18n="rarityLabel">Rarity</strong><span id="rarity">Very probably rare</span></div>
+          </div>
         </div>
-      </div>
+      </article>
     </section>
 
     <section class="stats-section">
@@ -116,31 +128,6 @@
       </div>
     </section>
 
-    <section class="special-card-section">
-      <div class="section-heading">
-        <span class="section-kicker">CARTA ESPECIAL</span>
-        <h2>Floral — Edición Especial</h2>
-        <p>Una segunda versión especial de la carta, con su propio diseño y estadísticas.</p>
-      </div>
-      <article class="special-card-product">
-        <div class="special-card-image-wrap">
-          <img class="special-card-image" src="floral-special.png" alt="Carta Floral edición especial — 450 PS">
-        </div>
-        <div class="special-card-info">
-          <span class="special-label">SPECIAL EDITION</span>
-          <h3>Floral</h3>
-          <p class="special-subtitle">Stage 1 · 450 HP · Tipo Planta</p>
-          <div class="special-stats">
-            <div><strong>120</strong><span>Seed Bomb</span></div>
-            <div><strong>180</strong><span>Energy Leech</span></div>
-            <div><strong>014/193</strong><span>Card No.</span></div>
-          </div>
-          <p class="special-description">Una versión especial de Floral con ilustración alternativa y acabado destacado.</p>
-          <button class="buy" type="button" id="specialBuyButton">COMPRAR EDICIÓN ESPECIAL</button>
-        </div>
-      </article>
-    </section>
-
     <section class="joke-box">
       <h2 data-i18n="jokeTitle">¿Por qué cuesta tanto?</h2>
       <p data-i18n="jokeText">Porque el número 449,99 parecía suficientemente caro y suficientemente estúpido.</p>
@@ -148,7 +135,7 @@
   </main>
 
   <footer>
-    <span data-i18n="footer">© 2026 Floral™ Store.</span>
+    <span data-i18n="footer">© 2026 Verdant Card Exchange™.</span>
   </footer>
 
   <div id="modal" class="modal" hidden>
